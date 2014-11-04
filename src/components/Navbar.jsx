@@ -8,9 +8,8 @@ var Navbar = React.createClass({
     return (
       <div className="navbar-top" role="navigation">
         <div className="container">
-          <Link className="navbar-brand row" to="/">
-            <img src="/images/logo-small.png" width="38" height="38" alt="React" />
-            <span>React.js Starter Kit</span>
+          <Link className="react-logo" to="http://facebook.github.io/react/">
+            React.js Starter Kit
           </Link>
         </div>
       </div>

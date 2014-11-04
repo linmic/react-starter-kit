@@ -19,7 +19,7 @@ var webpack = require('webpack');
  */
 module.exports = function(release) {
   return {
-    entry: './src/app.js',
+    entry: './src/app.coffee',
 
     output: {
       filename: 'app.js',
@@ -45,7 +45,7 @@ module.exports = function(release) {
     ] : [],
 
     resolve: {
-      extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx']
+      extensions: ['', '.webpack.js', '.web.coffee', '.web.js', '.js', '.cjsx', '.jsx', '.coffee']
     },
 
     module: {
@@ -81,6 +81,14 @@ module.exports = function(release) {
         {
           test: /\.jsx?$/,
           loader: 'jsx-loader?harmony'
+        },
+        {
+          test: /\.coffee$/,
+          loader: "coffee-loader"
+        },
+        {
+          test: /\.cjsx$/,
+          loaders: ["coffee-loader", "cjsx-loader"]
         }
       ]
     }

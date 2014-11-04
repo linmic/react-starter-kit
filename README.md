@@ -105,7 +105,7 @@ $ npm test
 ```
 
 ### Learn More
-
+G
  * [Getting Started with React.js](http://facebook.github.io/react/)
  * [React.js Wiki on GitHub](https://github.com/facebook/react/wiki)
  * [React.js Questions on StackOverflow](http://stackoverflow.com/questions/tagged/reactjs)
@@ -124,3 +124,10 @@ Source code is licensed under the MIT License (MIT). See [LICENSE.txt](./LICENSE
 file in the project root. Documentation to the project is licensed under the
 [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/) license. React logo
 image is a trademark of Facebook, Inc.
+
+### Modification
+
+1. Use compass/sass/susy/breakpoint instead of less.
+2. Use coffee-loader on webpack entry.
+3. Added cjsx support.
+4. Use bootstrap from CDN instead of local pack.

@@ -1,0 +1,19 @@
+@mixin fast-sprite($icon, $align: '', $hover: true) {
+  $width: image-width(sprite-file($base_sprites, $icon));
+  $height: image-height(sprite-file($base_sprites, $icon));
+
+  @if $align == 'horizontal-center' {
+    position: absolute;
+    left: 50%;
+    margin-left: -$width/2;
+  } @else if $align == 'vertical-center' {
+    position: absolute;
+    top: 50%;
+    margin-top: -$height/2;
+  }
+
+  @include retina-sprite(#{$icon}, $base_sprites, $base_sprites2x, $hover);
+
+  @if $hover == true {
+  }
+}

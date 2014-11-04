@@ -17,6 +17,7 @@ var webpack = require('webpack');
 var browserSync = require('browser-sync');
 var pagespeed = require('psi');
 var argv = require('minimist')(process.argv.slice(2));
+var compass = require('gulp-compass');
 
 // Settings
 var DEST = './build';                         // The build output folder
@@ -57,9 +58,7 @@ gulp.task('clean', del.bind(null, [DEST]));
 gulp.task('vendor', function() {
   return merge(
     gulp.src('./node_modules/jquery/dist/**')
-      .pipe(gulp.dest(DEST + '/vendor/jquery-' + pkgs.jquery)),
-    gulp.src('./node_modules/bootstrap/dist/fonts/**')
-      .pipe(gulp.dest(DEST + '/fonts'))
+      .pipe(gulp.dest(DEST + '/vendor/jquery-' + pkgs.jquery))
   );
 });
 
@@ -87,9 +86,14 @@ gulp.task('images', function() {
 
 // HTML pages
 gulp.task('pages', function() {
-  src.pages = ['src/pages/**/*.jsx', 'src/pages/404.html'];
+  src.pages = [
+    'src/pages/**/*.jsx',
+    'src/pages/404.html'
+  ];
+
   var render = $.render({template: './src/pages/_template.html'})
-    .on('error', function(err) { console.log(err); render.end(); });
+  .on('error', function(err) { console.log(err); render.end(); });
+
   return gulp.src(src.pages)
     .pipe($.changed(DEST, {extension: '.html'}))
     .pipe($.if('*.jsx', render))
@@ -103,21 +107,23 @@ gulp.task('pages', function() {
     .pipe($.size({title: 'pages'}));
 });
 
-// CSS style sheets
-gulp.task('styles', function() {
-  src.styles = 'src/styles/**/*.{css,less}';
-  return gulp.src('src/styles/bootstrap.less')
-    .pipe($.plumber())
-    .pipe($.less({
-      sourceMap: !RELEASE,
-      sourceMapBasepath: __dirname
+// Compass
+gulp.task('compass', function() {
+  src.compass = 'src/sass/**/*.{css,scss}';
+
+  return gulp.src('src/sass/**/*.{css,scss}')
+    .pipe(compass({
+      // Gulp-compass options and paths
+      css: 'src/css',
+      sass: 'src/sass',
+      image: 'src/images',
+      require: ['susy', 'breakpoint']
     }))
     .on('error', console.error.bind(console))
-    .pipe($.autoprefixer({browsers: AUTOPREFIXER_BROWSERS}))
     .pipe($.csscomb())
     .pipe($.if(RELEASE, $.minifyCss()))
     .pipe(gulp.dest(DEST + '/css'))
-    .pipe($.size({title: 'styles'}));
+    .pipe($.size({title: 'compass'}));
 });
 
 // Bundle
@@ -148,7 +154,7 @@ gulp.task('bundle', function(cb) {
 
 // Build the app from source code
 gulp.task('build', ['clean'], function(cb) {
-  runSequence(['vendor', 'assets', 'images', 'pages', 'styles', 'bundle'], cb);
+  runSequence(['vendor', 'assets', 'images', 'pages', 'compass', 'bundle'], cb);
 });
 
 // Launch a lightweight HTTP Server
@@ -185,7 +191,7 @@ gulp.task('serve', function(cb) {
     gulp.watch(src.assets, ['assets']);
     gulp.watch(src.images, ['images']);
     gulp.watch(src.pages, ['pages']);
-    gulp.watch(src.styles, ['styles']);
+    gulp.watch(src.compass, ['compass']);
     gulp.watch(DEST + '/**/*.*', function(file) {
       browserSync.reload(path.relative(__dirname, file.path));
     });

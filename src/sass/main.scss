@@ -1,0 +1,49 @@
+@import 'compass/css3';
+@import 'susy';
+@import 'breakpoint';
+
+@import 'modules/retina-sprites';
+
+$base_sprites: sprite-map("sprites/base/*.png", $spacing: 1px);
+$base_sprites2x: sprite-map("sprites/base2x/*.png", $spacing: 2px);
+
+.react-logo {
+  display: block;
+  position: relative;
+  padding-left: 38px + 5px;
+  line-height: 38px;
+  color: #61dafb;
+  font-size: 20px;
+
+  &:before {
+    @include retina-sprite('logo-react', $base_sprites, $base_sprites2x, $hover: false);
+    position: absolute;
+    content: '';
+    display: block;
+    width: 38px;
+    height: 38px;
+    left: 0;
+    top: 0;
+  }
+}
+
+.navbar-top,
+.jumbotron {
+  background: #2d2d2d;
+}
+
+.jumbotron {
+  color: #e9e9e9;
+
+  h1 {
+    color: #61dafb;
+  }
+}
+
+.navbar-footer {
+  text-align: center;
+}
+
+dd, dt {
+  line-height: 1.8;
+}

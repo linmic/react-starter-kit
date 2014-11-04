@@ -38,7 +38,7 @@ var HomePage = React.createClass({
           </div>
           <div className="col-sm-4">
             <h3>Fork me on GitHub</h3>
-            <p><a href="https://github.com/kriasoft/react-starter-kit">github.com/kriasoft/react-starter-kit</a></p>
+            <p><a href="https://github.com/linmic/react-starter-kit">github.com/linmic/react-starter-kit</a></p>
           </div>
         </div>
       </div>
