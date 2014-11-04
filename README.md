@@ -105,7 +105,7 @@ $ npm test
 ```
 
 ### Learn More
-G
+
  * [Getting Started with React.js](http://facebook.github.io/react/)
  * [React.js Wiki on GitHub](https://github.com/facebook/react/wiki)
  * [React.js Questions on StackOverflow](http://stackoverflow.com/questions/tagged/reactjs)
